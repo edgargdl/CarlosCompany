@@ -7,7 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,21 +22,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 //JPA
-@Entity
-@Table(name = "movements")
+@MappedSuperclass
 public class Movement implements Serializable {
 
     @Id
     @GeneratedValue
     private long id;
-    @OneToOne(cascade = {CascadeType.REFRESH})
-    @JoinColumn(name = "catalog_id", referencedColumnName = "id")
-    private Catalog catalog;
-    private Date fecha;
-    private int cantidad;
-    @OneToOne(cascade = {CascadeType.REFRESH})
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
-    private Account account;
-    private String tipo;
+    private Date date;
+    private int amount;
+    private String type;
 
 }
